@@ -1,13 +1,22 @@
-import './App.css';
-import ImageUploader from './ImageUploader';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ImageUploader from "./ImageUploader";
+import Contacto from "./Contacto";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Trabajo Práctico N°1 - Lenguajes IV</h1>
-      <p>Selecciona una imagen para mostrarla en pantalla:</p>
-      <ImageUploader />
-    </div>
+    <Router>
+      <div style={{ padding: "20px" }}>
+        <nav style={{ marginBottom: "20px" }}>
+          <Link to="/" style={{ marginRight: "15px" }}>Subida de Imágenes</Link>
+          <Link to="/contacto">Contacto</Link>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<ImageUploader />} />
+          <Route path="/contacto" element={<Contacto />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
