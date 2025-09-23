@@ -4,9 +4,9 @@ import "./Contacto.css";
 
 function Contacto() {
   const [formData, setFormData] = useState({
-    nombre: "",
-    email: "",
-    mensaje: ""
+    from_name: "",
+    from_email: "",
+    message: ""
   });
 
   const [status, setStatus] = useState("");
@@ -19,7 +19,7 @@ function Contacto() {
     e.preventDefault();
 
     // Validaciones simples
-    if (!formData.nombre || !formData.email || !formData.mensaje) {
+    if (!formData.from_name || !formData.from_email || !formData.message) {
       setStatus("⚠️ Todos los campos son obligatorios");
       return;
     }
@@ -28,17 +28,13 @@ function Contacto() {
       .send(
         "service_mi1fayp",       // Service ID
         "template_06pv6tu",      // Template ID
-        {
-          nombre: formData.nombre,
-          email: formData.email,
-          mensaje: formData.mensaje,
-        },
+        formData,                // Ahora usa los mismos nombres que la plantilla
         "JKGCL9x6rrLCP4wir"      // Public Key
       )
       .then(
         () => {
           setStatus("✅ Correo enviado con éxito");
-          setFormData({ nombre: "", email: "", mensaje: "" });
+          setFormData({ from_name: "", from_email: "", message: "" });
         },
         (error) => {
           setStatus("❌ Error al enviar: " + error.text);
@@ -54,8 +50,8 @@ function Contacto() {
           <label>Nombre:</label>
           <input
             type="text"
-            name="nombre"
-            value={formData.nombre}
+            name="from_name"
+            value={formData.from_name}
             onChange={handleChange}
           />
         </div>
@@ -64,8 +60,8 @@ function Contacto() {
           <label>Correo electrónico:</label>
           <input
             type="email"
-            name="email"
-            value={formData.email}
+            name="from_email"
+            value={formData.from_email}
             onChange={handleChange}
           />
         </div>
@@ -73,8 +69,8 @@ function Contacto() {
         <div>
           <label>Mensaje:</label>
           <textarea
-            name="mensaje"
-            value={formData.mensaje}
+            name="message"
+            value={formData.message}
             onChange={handleChange}
           ></textarea>
         </div>
